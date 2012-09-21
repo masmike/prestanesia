@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>memberalert</name>
+	<displayName><![CDATA[Member Alert]]></displayName>
+	<version><![CDATA[1.1]]></version>
+	<description><![CDATA[Send email notification to site admin for every new user registration]]></description>
+	<author><![CDATA[prestanesia.com]]></author>
+	<tab><![CDATA[administration]]></tab>
+	<is_configurable>0</is_configurable>
+	<need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>
