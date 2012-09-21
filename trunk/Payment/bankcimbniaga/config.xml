@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <module>
+            <name>bankcimbniaga</name>
+            <displayName><![CDATA[Bank CIMBNIAGA]]></displayName>
+            <version><![CDATA[0.5]]></version>
+            <description><![CDATA[Accept payments by bank CIMBNIAGA.]]></description>
+            <author><![CDATA[Prestanesia.com]]></author>
+            <tab><![CDATA[payments_gateways]]></tab>
+	<confirmUninstall>Are you sure you want to delete your details?</confirmUninstall>
+            <is_configurable>1</is_configurable>
+            <need_instance>1</need_instance>
+	<limited_countries>id</limited_countries>
+        </module>
