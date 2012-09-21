@@ -1,0 +1,20 @@
+/*
+Module		: Popup News
+Author		: Prestanesia
+Website		: http://prestanesia.com
+*/
+.meerkat {display: none;background-color: #fff; width: 500px; height: 300px; position: absolute; top: 50%; margin-top: -150px; left: 50%; margin-left: -250px;}
+#splash { 
+	background-color: #efefef; 
+	padding:10px;
+	margin:0;
+	border:9px solid #ccc;
+	text-align:left;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif; color:#333;
+}
+#splash-content { height:280px; overflow:auto;}
+#splash-content h1 {font-weight:normal;color:#f00;font-family:Georgia;font-size:3em;line-height:1;margin:0 0 0.5em 0;padding:0; background-image:none; }
+#splash-content p {margin:0 0 1.5em; font-size:100%;}
+#splash-footer {text-align:right;}
+#splash-footer a,#splash-footer a:link,#splash-footer a:visited {text-decoration:none;color:#f00;}
+#splash-footer a:hover {text-decoration:underline;}

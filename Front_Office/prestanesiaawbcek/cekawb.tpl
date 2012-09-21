@@ -1,0 +1,1 @@
+{capture name=path}{l s='AWB Check' mod='prestanesiaawbcek'}{/capture}{include file="$tpl_dir./breadcrumb.tpl"}<h2>{l s='AWB Check' mod='prestanesiaawbcek'}</h2><div class="clear">&nbsp;</div><div id="awbinfo">{$tab1}{$tab2}{$tab3}</div><style type="text/css">#awbinfo table tr.trackH { background-color:#e5e6e7; color:#333;}</style>
