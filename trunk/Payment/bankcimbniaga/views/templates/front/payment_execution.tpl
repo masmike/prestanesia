@@ -24,7 +24,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-{capture name=path}{l s='Bank CIMBNIAGA payment' mod='bankcimbniaga'}{/capture}
+{capture name=path}{l s='Bank CIMB NIAGA payment' mod='bankcimbniaga'}{/capture}
 {include file="$tpl_dir./breadcrumb.tpl"}
 
 <h2>{l s='Order summary' mod='bankcimbniaga'}</h2>
@@ -36,11 +36,11 @@
 	<p class="warning">{l s='Your shopping cart is empty.' mod='bankcimbniaga'}</p>
 {else}
 
-<h3>{l s='Bank CIMBNIAGA payment' mod='bankcimbniaga'}</h3>
+<h3>{l s='Bank CIMB NIAGA payment' mod='bankcimbniaga'}</h3>
 <form action="{$link->getModuleLink('bankcimbniaga', 'validation')}" method="post">
 <p>
-	<img src="{$this_path}bankwire.jpg" alt="{l s='bank CIMBNIAGA' mod='bankcimbniaga'}" width="86" height="49" style="float:left; margin: 0px 10px 5px 0px;" />
-	{l s='You have chosen to pay by bank CIMBNIAGA.' mod='bankcimbniaga'}
+	<img src="{$this_path}bankwire.jpg" alt="{l s='bank CIMB NIAGA' mod='bankcimbniaga'}" style="float:left; margin: 0px 10px 5px 0px;" />
+	{l s='You have chosen to pay by bank CIMB NIAGA.' mod='bankcimbniaga'}
 	<br/><br />
 	{l s='Here is a short summary of your order:' mod='bankcimbniaga'}
 </p>
@@ -54,7 +54,7 @@
 <p>
 	-
 	{if $currencies|@count > 1}
-		{l s='We accept several currencies to be sent by bank CIMBNIAGA.' mod='bankcimbniaga'}
+		{l s='We accept several currencies to be sent by bank CIMB NIAGA.' mod='bankcimbniaga'}
 		<br /><br />
 		{l s='Choose one of the following:' mod='bankcimbniaga'}
 		<select id="currency_payement" name="currency_payement" onchange="setCurrency($('#currency_payement').val());">
@@ -63,12 +63,12 @@
 			{/foreach}
 		</select>
 	{else}
-		{l s='We accept the following currency to be sent by bank CIMBNIAGA:' mod='bankcimbniaga'}&nbsp;<b>{$currencies.0.name}</b>
+		{l s='We accept the following currency to be sent by bank CIMB NIAGA:' mod='bankcimbniaga'}&nbsp;<b>{$currencies.0.name}</b>
 		<input type="hidden" name="currency_payement" value="{$currencies.0.id_currency}" />
 	{/if}
 </p>
 <p>
-	{l s='Bank CIMBNIAGA account information will be displayed on the next page.' mod='bankcimbniaga'}
+	{l s='Bank CIMB NIAGA account information will be displayed on the next page.' mod='bankcimbniaga'}
 	<br /><br />
 	<b>{l s='Please confirm your order by clicking \'I confirm my order\'' mod='bankcimbniaga'}.</b>
 </p>

@@ -39,7 +39,7 @@
 <h3>{l s='Bank BNI payment' mod='bankbni'}</h3>
 <form action="{$link->getModuleLink('bankbni', 'validation')}" method="post">
 <p>
-	<img src="{$this_path}bankwire.jpg" alt="{l s='bank BNI' mod='bankbni'}" width="86" height="49" style="float:left; margin: 0px 10px 5px 0px;" />
+	<img src="{$this_path}bankwire.jpg" alt="{l s='bank BNI' mod='bankbni'}" style="float:left; margin: 0px 10px 5px 0px;" />
 	{l s='You have chosen to pay by bank BNI.' mod='bankbni'}
 	<br/><br />
 	{l s='Here is a short summary of your order:' mod='bankbni'}

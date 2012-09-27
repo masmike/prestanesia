@@ -25,8 +25,8 @@
 *}
 
 <p class="payment_module">
-	<a href="{$link->getModuleLink('bankcimbniaga', 'payment')}" title="{l s='Pay by bank CIMBNIAGA' mod='bankcimbniaga'}">
-		<img src="{$this_path}bankwire.jpg" alt="{l s='Pay by bank CIMBNIAGA' mod='bankcimbniaga'}" width="86" height="49"/>
-		{l s='Pay by bank CIMBNIAGA (order process will be longer)' mod='bankcimbniaga'}
+	<a href="{$link->getModuleLink('bankcimbniaga', 'payment')}" title="{l s='Pay by bank CIMB NIAGA' mod='bankcimbniaga'}">
+		<img src="{$this_path}bankwire.jpg" alt="{l s='Pay by bank CIMB NIAGA' mod='bankcimbniaga'}"/>
+		{l s='Pay by bank CIMB NIAGA (order process will be longer)' mod='bankcimbniaga'}
 	</a>
 </p>

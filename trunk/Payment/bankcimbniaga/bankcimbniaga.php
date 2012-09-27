@@ -34,8 +34,8 @@ class BankCIMBNIAGA extends PaymentModule
 
 		parent::__construct();
 
-		$this->displayName = $this->l('Bank CIMBNIAGA');
-		$this->description = $this->l('Accept payments by bank CIMBNIAGA.');
+		$this->displayName = $this->l('Bank CIMB NIAGA');
+		$this->description = $this->l('Accept payments by bank CIMB NIAGA.');
 		$this->confirmUninstall = $this->l('Are you sure you want to delete your details?');
 		if (!isset($this->owner) || !isset($this->details) || !isset($this->address))
 			$this->warning = $this->l('Account owner and details must be configured in order to use this module correctly.');
@@ -102,7 +102,7 @@ class BankCIMBNIAGA extends PaymentModule
 			<fieldset>
 			<legend><img src="../img/admin/contact.gif" />'.$this->l('Contact details').'</legend>
 				<table border="0" width="500" cellpadding="0" cellspacing="0" id="form">
-					<tr><td colspan="2">'.$this->l('Please specify the bank CIMBNIAGA account details for customers').'.<br /><br /></td></tr>
+					<tr><td colspan="2">'.$this->l('Please specify the bank CIMB NIAGA account details for customers').'.<br /><br /></td></tr>
 					<tr><td width="130" style="height: 35px;">'.$this->l('Account owner').'</td><td><input type="text" name="owner" value="'.htmlentities(Tools::getValue('owner', $this->owner), ENT_COMPAT, 'UTF-8').'" style="width: 300px;" /></td></tr>
 					<tr>
 						<td width="130" style="vertical-align: top;">'.$this->l('Details').'</td>
