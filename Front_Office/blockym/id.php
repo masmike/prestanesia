@@ -1,0 +1,30 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{blockym}prestashop>blockym_c833aff5e4a7af60cc704ad479199993'] = 'Blok YM+';
+$_MODULE['<{blockym}prestashop>blockym_9eb9514f5dc51cfecf12ff148f0616a0'] = 'Menampilkan status online di Yahoo Messenger';
+$_MODULE['<{blockym}prestashop>blockym_cf2496efec817bb7f65161d6a0e87cf3'] = 'Masukan Yahoo ID Anda';
+$_MODULE['<{blockym}prestashop>blockym_f4f70727dc34561dfde1a3c529b6205c'] = 'Seting';
+$_MODULE['<{blockym}prestashop>blockym_908142e8050c8b798df5f43eefa351ab'] = 'Blok default';
+$_MODULE['<{blockym}prestashop>blockym_00d23a76e43b46dae9ec7aa9dcbebb32'] = 'Aktifkan';
+$_MODULE['<{blockym}prestashop>blockym_b9f5c797ebbf55adccdd8539a65a0241'] = 'Nonaktifkan';
+$_MODULE['<{blockym}prestashop>blockym_8ad34ba3fd96d7a9b667d0c52118138a'] = 'Aktif/nonaktifkan frame default untuk blok';
+$_MODULE['<{blockym}prestashop>blockym_ca94b65189c5b87a9533aa5db465e9c8'] = 'Judul header';
+$_MODULE['<{blockym}prestashop>blockym_1eee5a3046d2d1b8b4047def55c99cb9'] = 'Judul untuk blok';
+$_MODULE['<{blockym}prestashop>blockym_c9cc8cce247e49bae79f15173ce97354'] = 'Simpan';
+$_MODULE['<{blockym}prestashop>blockym_ec211f7c20af43e742bf2570c3cb84f9'] = 'Tambah';
+$_MODULE['<{blockym}prestashop>blockym_b78a3223503896721cca1303f776159b'] = 'Judul';
+$_MODULE['<{blockym}prestashop>blockym_23a69f890e864a5db1cdef5a6cfa84bb'] = 'judul untuk yahoo ID Anda';
+$_MODULE['<{blockym}prestashop>blockym_59fc7f0ebd8e4e65b2be0adeba36c7e7'] = 'Yahoo ID';
+$_MODULE['<{blockym}prestashop>blockym_ea95d0f2e999d8fc5f5b99c0294c7416'] = 'masukan yahoo ID Anda';
+$_MODULE['<{blockym}prestashop>blockym_d620c7ca0d02d3eef05ccda79c969ce0'] = 'Online Icon';
+$_MODULE['<{blockym}prestashop>blockym_aecf0355c714dd3675f8392657659957'] = 'pilih icon favorit Anda';
+$_MODULE['<{blockym}prestashop>blockym_4ee29ca12c7d126654bd0e5275de6135'] = 'Daftar user online';
+$_MODULE['<{blockym}prestashop>blockym_91aa7c6ac1862e543737db9c79a154ce'] = 'Yakin akan menghapus data?';
+$_MODULE['<{blockym}prestashop>blockym_5fc637c191b973acdb10f20ab7b1f6b6'] = 'masukan yahoo ID Anda';
+$_MODULE['<{blockym}prestashop>blockym_290f0955789c4aa7bc24628cfba3c716'] = 'pilih icon';
+$_MODULE['<{blockym}prestashop>blockym_444bcb3a3fcf8389296c49467f27e1d6'] = 'ok';
+$_MODULE['<{blockym}prestashop>blockym_7278125be8c9aceaaf5d3f7645b45c5c'] = 'Seting berhasil disimpan';
+$_MODULE['<{blockym}prestashop>blockym_fceeb5016bb0f73c287eca0613926061'] = 'Seting berhasil disimpan';
+$_MODULE['<{blockym}prestashop>blockym_dd3aefaa46f66eaae1754ead200fbd0e'] = 'Data berhasil dihapus';
