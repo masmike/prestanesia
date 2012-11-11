@@ -6,10 +6,13 @@ if (!defined('_PS_VERSION_'))
 class BlockYM extends Module
 {	
 	
+	private $_html = '';
+	private $_postErrors = array();
+	
 	function __construct()
  	{
  	 	$this->name = 'blockym';
- 	 	$this->version = '0.4';
+ 	 	$this->version = '0.5';
 		$this->author = 'Prestanesia.com';
 		$this->need_instance = 0;		
 		$this->tab = 'front_office_features';
@@ -18,30 +21,29 @@ class BlockYM extends Module
 		
 		$this->displayName = $this->l('Block YM+');
 		$this->description = $this->l('Display YM! online status');
-		$config = Configuration::getMultiple(array('PS_YM_DATA'));
-		if (empty($config['PS_YM_DATA']))
-			$this->warning = $this->l('Please insert your Yahoo ID');
 		
  	}
 
 	function install()
 	{
-	 	if (!parent::install() OR !$this->registerHook('displayLeftColumn') OR !$this->registerHook('displayHeader')
-	 		OR !Configuration::updateValue('PS_YM_DATA', NULL)
-	 		OR !Configuration::updateValue('PS_YM_TITLE', 'Online Chat')
-	 		OR !Configuration::updateValue('PS_YM_BLOCK', 1)
-	 		)
+	 	if (!parent::install() OR !$this->registerHook('displayLeftColumn') OR !$this->registerHook('displayHeader'))
 	 		return false;
 	 	return true;
 	}
 	
+	public function initConfig() {
+		Configuration::updateValue('PS_YM_DATA', NULL);
+		Configuration::updateValue('PS_YM_TITLE', 'Online Chat');
+		Configuration::updateValue('PS_YM_BLOCK', 1);
+		return true;
+	}
+	
 	public function uninstall()
 	{
-		if (!Configuration::deleteByName('PS_YM_DATA')
-		    OR !Configuration::deleteByName('PS_YM_TITLE')
-		    OR !Configuration::deleteByName('PS_YM_BLOCK')
-		    OR !parent::uninstall())
-		return false;
+		if (!parent::uninstall() OR !Configuration::deleteByName('PS_YM_DATA') OR !Configuration::deleteByName('PS_YM_TITLE')  OR !Configuration::deleteByName('PS_YM_BLOCK'))
+			return false;
+			
+		return true;	
 	}
 	
 	private function dataList()
@@ -61,7 +63,7 @@ class BlockYM extends Module
 				{	
 					$_list .= '<td nowrap="nowrap">'.$v.'</td>'.PHP_EOL;
 				}
-				$_list .= '<td width="25" align="right"><a href="?tab=AdminModules&configure='.$this->name.'&delete='.$i.'&token='.Tools::getValue('token').'" onclick="return confirmAction();"><img src="'._PS_IMG_.'admin/disabled.gif" width="16" height="16"></a></td>'.PHP_EOL;
+				$_list .= '<td width="25" align="right"><a href="?controller=adminmodules&configure='.$this->name.'&token='.Tools::getValue('token').'&deleteBlockYM&ym_id='.$i.'" onclick="return confirmAction();"><img src="'._PS_IMG_.'admin/disabled.gif" width="16" height="16"></a></td>'.PHP_EOL;
 				$_list .= '</tr>'.PHP_EOL;
 			}
 		}
@@ -71,14 +73,14 @@ class BlockYM extends Module
 		return $_list;
 	}
 
-	public function displayForm()
+	private function _displayForm()
 	{
 		$cb='';
 		for($i = 1; $i < 25; $i=$i+1) {
 			$cb=$cb.'<option value="'.$i.'">'.$i.'</option>';
 		}				
 		
-		return '
+		$this->_html .= '
 		<style>
 			.opi_icon {width:148px; height:164px;float:left;border:1px solid #efefef; position:relative;}
 			.opi_icon span {display:block;text-align:center; font-size:1em; border:1px solid red; position:absolute;bottom:0; left:0; width:128px; background-color:#f00;color:#fff;}
@@ -101,7 +103,7 @@ class BlockYM extends Module
 					<p class="clear">'.$this->l('enable/disable on default block frame').'</p>
 				</div>
 				<label>'.$this->l('Header Title').'</label>
-				<div class="margin-form"><input type="text" name="ymtitle" id="ymtitle" value="'.Configuration::get('PS_YM_TITLE').'" size="50">
+				<div class="margin-form"><input type="text" name="ymtitle" id="ymtitle" value="'.Configuration::get('PS_YM_TITLE').'" size="50"><sup> *</sup>
 					<p class="clear">'.$this->l('title for this block').'</p>
 				</div>
 				<center><input type="submit" name="btnSetting" value="'.$this->l('Save').'" class="button" /></center>
@@ -110,11 +112,11 @@ class BlockYM extends Module
 		<form action="'.$_SERVER['REQUEST_URI'].'" method="post" style="margin-bottom:10px;">
 			<fieldset><legend><img src="../img/admin/add.gif" alt="" title="" />'.$this->l('Add').'</legend>
 				<label>'.$this->l('Title').'</label>
-				<div class="margin-form"><input type="text" name="ymtitle" id="ymtitle" size="50">
+				<div class="margin-form"><input type="text" name="ymtitle" id="ymtitle" size="50"><sup> *</sup>
 					<p class="clear">'.$this->l('title for your yahoo id').'</p>
 				</div>			
 				<label>'.$this->l('Yahoo ID').'</label>
-				<div class="margin-form"><input type="text" name="ymid" id="ymid" size="50">
+				<div class="margin-form"><input type="text" name="ymid" id="ymid" size="50"><sup> *</sup>
 					<p class="clear">'.$this->l('insert your yahoo id').'</p>
 				</div>
 				<label>'.$this->l('Online Icon').'</label>
@@ -157,63 +159,88 @@ class BlockYM extends Module
 		    <script type="text/javascript">function confirmAction() { if (typeof(window.opera) != \'undefined\') { return true; } var is_confirmed = confirm(\''.$this->l('Are sure want to delete this data').'\'); return is_confirmed; }</script>
 		    '.$this->dataList().'
 		</fieldset>
-		
 		';
 	}
 
-	public function getContent()
+	private function _postValidation()
 	{
-		$output = '<h2>'.$this->displayName.'</h2>';
-		$ymid = Tools::getValue('ymid');
-		$ymicon = (int)Tools::getValue('ymicon');
-		
 		if (Tools::isSubmit('btnAdd'))
 		{
-			if (empty($ymid) || !isset($ymid))
-				$output .= '<div class="alert error">'.$this->l('Please Insert Yahoo User-ID').'</div>';
-			elseif (empty($ymicon) || !isset($ymicon))
-				$output .= '<div class="alert error">'.$this->l('Please select an icon').'</div>';		
-		}	
+			if (!Tools::getValue('ymid'))
+				$this->_postErrors[] = $this->l('Please Insert Yahoo User-ID');
+			elseif (!Tools::getValue('ymtitle'))
+				$this->_postErrors[] = $this->l('Title is required');
+		}		
+		if (Tools::isSubmit('btnSetting'))
+		{
+			if (!Tools::getValue('ymtitle'))
+				$this->_postErrors[] = $this->l('Title is required');
+		}		
+	}
+	
+	private function _postProcess()
+	{
+		if (Tools::isSubmit('btnAdd'))
+		{
+			$ymid = Tools::getValue('ymid');
+			$ymicon = (int)Tools::getValue('ymicon');
 		
+				
+			$_value = Configuration::get('PS_YM_DATA');
+			empty($_value) ? $value = Tools::getValue('ymtitle').','.Tools::getValue('ymid').','.Tools::getValue('ymicon') : $value = $_value.'|'.Tools::getValue('ymtitle').','.Tools::getValue('ymid').','.Tools::getValue('ymicon');
+			Configuration::updateValue('PS_YM_DATA', $value);
+		}
 		if (Tools::isSubmit('btnSetting'))
 		{
 	 		Configuration::updateValue('PS_YM_TITLE', Tools::getValue('ymtitle'));
 	 		Configuration::updateValue('PS_YM_BLOCK', Tools::getValue('ymblock'));
-			$output .= '<div class="conf confirm"><img src="../img/admin/ok.gif" alt="'.$this->l('ok').'" /> '.$this->l('Settings Saved').'</div>';
-		}
-		
-		else if (Tools::isSubmit('btnAdd'))
-		{
-			$_value = Configuration::get('PS_YM_DATA');
-			empty($_value) ? $value = Tools::getValue('ymtitle').','.Tools::getValue('ymid').','.Tools::getValue('ymicon') : $value = $_value.'|'.Tools::getValue('ymtitle').','.Tools::getValue('ymid').','.Tools::getValue('ymicon');
-			Configuration::updateValue('PS_YM_DATA', $value);
-			$output .= '<div class="conf confirm"><img src="../img/admin/ok.gif" alt="'.$this->l('ok').'" /> '.$this->l('YM! data Saved').'</div>';
-		}
-		
-		else if (Tools::isSubmit('delete'))
-		{
-		    $k = Tools::getValue('delete');
-		    $array = explode('|',Configuration::get('PS_YM_DATA'));
-		    unset($array[$k]);
-		    Configuration::updateValue('PS_YM_DATA',implode('|',$array));
-		    $output .= '<div class="conf confirm"><img src="../img/admin/ok.gif" alt="'.$this->l('ok').'" /> '.$this->l('Data Deleted').'</div>';
 		}		
-		return $output.$this->displayForm();
+			
+		$this->_html .= '<div class="conf confirm"> '.$this->l('Settings updated').'</div>';
+	}
+	
+	public function getContent()
+	{
+		$this->_html  = '<h2>'.$this->displayName.'</h2>';
+		if (Tools::isSubmit('btnAdd') || Tools::isSubmit('btnSetting'))
+		{
+			$this->_postValidation();
+			if (!count($this->_postErrors))
+				$this->_postProcess();
+			else
+				foreach ($this->_postErrors as $err)
+					$this->_html .= '<div class="alert error">'.$err.'</div>';
+		}
+		else if (Tools::isSubmit('deleteBlockYM')){
+			$ymid = Tools::getValue('ym_id');
+		    $array = explode('|',Configuration::get('PS_YM_DATA'));
+		    unset($array[$ymid]);
+		    Configuration::updateValue('PS_YM_DATA',implode('|',$array));
+			Tools::redirectAdmin(AdminController::$currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules'));
+		}	
+		else
+			$this->_html .= '<br />';		
 
+		$this->_displayForm();
+
+		return $this->_html;
 	}	
 
 	public function hookDisplayLeftColumn($params)
 	{
 		global $smarty, $cookie;
 		
-		$_data = explode('|',Configuration::get('PS_YM_DATA'));
-		foreach($_data as $data) $array[] = explode(',',$data);
-		
-		for($i=0;$i<count($_data);$i++)
+		if (strlen(Configuration::get('PS_YM_DATA'))>0)
 		{
-			$ym[] = array("title" => $array[$i][0],"id" => $array[$i][1],"icon" => $array[$i][2]);
+			$_data = explode('|',Configuration::get('PS_YM_DATA'));
+			foreach($_data as $data) $array[] = explode(',',$data);
+			
+			for($i=0;$i<count($_data);$i++)
+			{
+				$ym[] = array("title" => $array[$i][0],"id" => $array[$i][1],"icon" => $array[$i][2]);
+			}
+			$smarty->assign('yms', $ym);
 		}
-		$smarty->assign('yms', $ym);
 		$smarty->assign('title', Configuration::get('PS_YM_TITLE'));
 		$smarty->assign('block', Configuration::get('PS_YM_BLOCK'));
 
